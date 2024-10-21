@@ -22,11 +22,11 @@ class SubscriptionController extends Controller
             $referrer = User::find($user->referred_by);
             $subscription = Subscription::where('user_id', $user->id)->first();
 
-            // // Vérifier le nombre de renouvellements pour ne pas dépasser 4 paiements de commission
-            if ($subscription->renewal_count < 1) {
+            if ($subscription->renewal_count == 1) {
                 $referrer->balance += 100;
             }
-
+            
+            // // Vérifier le nombre de renouvellements pour ne pas dépasser 4 paiements de commission
             if ($subscription->renewal_count <= 4) {
                 $commission = $amount * 0.10; // 10% du montant de l'abonnement
 
